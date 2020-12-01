@@ -1,13 +1,15 @@
 package com.dariobrux.openweatherapp.ui.splash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.dariobrux.openweatherapp.R
+import com.dariobrux.openweatherapp.common.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 
 /**
  *
@@ -19,11 +21,37 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
+    /**
+     * View binder. Destroy it in onDestroyView avoiding memory leaks.
+     */
     private var binding: FragmentSplashBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    /**
+     * The Coroutine Scope in which apply the splash timer. Starts in
+     * onResume and cancels in onPause.
+     */
+    private val activityScope = CoroutineScope(Dispatchers.Main)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding!!.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        requireActivity().toMainActivity()?.setStatusBarColor(R.color.blue_gray_900)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activityScope.launch {
+            delay(3000)
+        }
+    }
+
+    override fun onPause() {
+        activityScope.cancel()
+        super.onPause()
     }
 
     override fun onDestroyView() {
