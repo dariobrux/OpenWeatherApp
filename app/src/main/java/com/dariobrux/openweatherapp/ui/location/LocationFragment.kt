@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.toMainActivity
 import com.dariobrux.openweatherapp.data.remote.Resource
@@ -63,9 +64,9 @@ class LocationFragment : Fragment() {
             viewModel.bind(editLocation)
         }
 
-        viewModel.weather.observe(viewLifecycleOwner) { resource ->
+        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) { resource ->
+            Timber.d("Location ${resource}")
             if (resource.status == Resource.Status.SUCCESS) {
-                Timber.d("Location ${resource.data}")
             }
         }
     }

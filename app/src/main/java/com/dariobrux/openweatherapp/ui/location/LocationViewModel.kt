@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 class LocationViewModel @ViewModelInject constructor(private val repository: LocationRepository) : ViewModel() {
 
-    val weather = MutableLiveData(Resource(Resource.Status.LOADING, emptyList<WeatherEntity>(), null))
+    val weather = MutableLiveData(Resource(Resource.Status.NONE, emptyList<WeatherEntity>(), null))
 
     /**
      * Bind the location EditText observing its changing text.

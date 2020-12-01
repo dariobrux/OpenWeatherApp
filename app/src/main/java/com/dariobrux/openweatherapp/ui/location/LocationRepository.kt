@@ -30,13 +30,13 @@ class LocationRepository @Inject constructor(private val api: WeatherApiHelper) 
      */
     suspend fun getWeather(cityName: String): LiveData<Resource<List<WeatherEntity>>> {
 
-        val result = MutableLiveData(Resource(Resource.Status.LOADING, emptyList<WeatherEntity>(), null))
+        var status = Resource.Status.NONE
+        var data = emptyList<WeatherEntity>()
+        var message: String? = null
+
+        val result = MutableLiveData(Resource(status, data, message))
 
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-
-            var status = Resource.Status.LOADING
-            var data = emptyList<WeatherEntity>()
-            var message: String? = ""
 
             kotlin.runCatching {
 
