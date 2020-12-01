@@ -2,7 +2,7 @@ package com.dariobrux.openweatherapp.di
 
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 
 /**
  *
@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ApplicationComponent
  *
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
 }
