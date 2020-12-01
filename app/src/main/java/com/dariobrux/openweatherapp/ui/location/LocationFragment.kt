@@ -66,9 +66,21 @@ class LocationFragment : Fragment() {
 
         viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) { resource ->
             Timber.d("Location ${resource}")
-            if (resource.status == Resource.Status.SUCCESS) {
+            when (resource.status) {
+                Resource.Status.NONE -> {
+                    // Do nothing
+                }
+                Resource.Status.LOADING -> {
+                    showLoading()
+                }
+                Resource.Status.SUCCESS -> { }
+                Resource.Status.ERROR -> {}
             }
         }
+    }
+
+    private fun showLoading() {
+        
     }
 
     override fun onDestroyView() {

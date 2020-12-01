@@ -31,6 +31,7 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
     fun bind(editText: EditText) {
         editText.doOnTextChanged { text, _, _, _ ->
             CoroutineScope(Dispatchers.Main).launch {
+                weather.value = Resource(Resource.Status.LOADING, weather.value?.data, weather.value?.message)
                 delay(1000)
                 weather.value = repository.getWeather(text.toString()).value
             }

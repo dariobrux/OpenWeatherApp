@@ -24,7 +24,7 @@ import javax.inject.Inject
 class LocationRepository @Inject constructor(private val api: WeatherApiHelper) {
 
     /**
-     * Get the weather from Restful API.
+     * Get the weather from API Rest.
      * @param cityName the name of the city.
      * @return the [WeatherEntity] object mapped into a [Resource], inside a [LiveData].
      */
