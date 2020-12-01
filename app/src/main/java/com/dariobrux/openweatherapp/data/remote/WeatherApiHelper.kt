@@ -1,6 +1,6 @@
 package com.dariobrux.openweatherapp.data.remote
 
-import com.dariobrux.openweatherapp.data.model.RootData
+import com.dariobrux.openweatherapp.data.remote.model.RootData
 import retrofit2.Response
 import javax.inject.Inject
 

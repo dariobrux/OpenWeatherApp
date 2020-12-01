@@ -3,13 +3,13 @@ package com.dariobrux.openweatherapp.ui.location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dariobrux.openweatherapp.common.Constants
-import com.dariobrux.openweatherapp.data.model.RootData
-import com.dariobrux.openweatherapp.data.remote.ApiHelper
+import com.dariobrux.openweatherapp.common.toWeatherEntityList
+import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,24 +26,41 @@ class LocationRepository @Inject constructor(private val api: WeatherApiHelper) 
     /**
      * Get the weather from Restful API.
      * @param cityName the name of the city.
-     * @return the [RootData] object mapped into a [Resource], inside a [LiveData].
+     * @return the [WeatherEntity] object mapped into a [Resource], inside a [LiveData].
      */
-    fun getWeather(cityName: String): LiveData<Resource<RootData>> {
+    suspend fun getWeather(cityName: String): LiveData<Resource<List<WeatherEntity>>> {
 
-        val result: MutableLiveData<Resource<RootData>> = MutableLiveData()
+        val result = MutableLiveData(Resource(Resource.Status.LOADING, emptyList<WeatherEntity>(), null))
 
-        CoroutineScope(Dispatchers.IO).launch {
+        withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
 
-            val rootData : RootData
+            var status = Resource.Status.LOADING
+            var data = emptyList<WeatherEntity>()
+            var message: String? = ""
 
             kotlin.runCatching {
+
                 api.getWeather(cityName, Constants.APP_ID)
+
             }.onSuccess {
-                true
-                 it
+
+                status = it.status
+                data = it.data.toWeatherEntityList()
+                message = it.message
+
             }.onFailure {
-                Timber.w("Problems while retrieve the data.")
+
+                status = Resource.Status.ERROR
+                data = emptyList()
+                message = "Problems while retrieve the data."
+
+                Timber.w(message)
             }
+
+            withContext(Dispatchers.Main) {
+                result.value = Resource(status, data, message)
+            }
+
         }
 
         return result

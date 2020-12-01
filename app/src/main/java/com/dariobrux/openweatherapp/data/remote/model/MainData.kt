@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.data.model
+package com.dariobrux.openweatherapp.data.remote.model
 
 import com.squareup.moshi.Json
 

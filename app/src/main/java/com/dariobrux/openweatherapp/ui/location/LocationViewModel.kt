@@ -5,6 +5,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
+import com.dariobrux.openweatherapp.data.remote.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 class LocationViewModel @ViewModelInject constructor(private val repository: LocationRepository) : ViewModel() {
 
-    val location = MutableLiveData("")
+    val weather = MutableLiveData(Resource(Resource.Status.LOADING, emptyList<WeatherEntity>(), null))
 
     /**
      * Bind the location EditText observing its changing text.
@@ -30,8 +32,7 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
         editText.doOnTextChanged { text, _, _, _ ->
             CoroutineScope(Dispatchers.Main).launch {
                 delay(1000)
-                repository.getWeather(text.toString())
-                location.value = text.toString()
+                weather.value = repository.getWeather(text.toString()).value
             }
         }
     }
