@@ -1,15 +1,18 @@
 package com.dariobrux.openweatherapp.ui.location
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
-import com.dariobrux.openweatherapp.databinding.FragmentSplashBinding
+import timber.log.Timber
 
 /**
  *
@@ -38,6 +41,30 @@ class LocationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         requireActivity().toMainActivity()?.setStatusBarColor(R.color.indigo_400)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding!!) {
+
+            materialTextField.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_UP) {
+                    if (!materialTextField.isExpanded) {
+                        materialTextField.expand()
+                    } else {
+                        materialTextField.reduce()
+                    }
+                }
+                false
+            }
+
+            viewModel.bind(editLocation)
+        }
+
+        viewModel.location.distinctUntilChanged().observe(viewLifecycleOwner) { location ->
+            if (location.isEmpty()) return@observe
+            Timber.d("Location $location")
+        }
     }
 
     override fun onDestroyView() {

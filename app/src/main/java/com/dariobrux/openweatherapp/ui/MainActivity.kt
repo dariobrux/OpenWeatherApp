@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import com.dariobrux.openweatherapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  *
  * Created by Dario Bruzzese on 1/12/2020.
