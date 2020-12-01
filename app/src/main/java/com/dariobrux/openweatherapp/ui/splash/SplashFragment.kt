@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentSplashBinding
@@ -45,7 +46,8 @@ class SplashFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activityScope.launch {
-            delay(3000)
+            delay(500)
+            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_locationFragment)
         }
     }
 
