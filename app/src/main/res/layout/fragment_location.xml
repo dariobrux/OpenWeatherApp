@@ -52,4 +52,12 @@
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerWeather"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ffff00"
+        app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

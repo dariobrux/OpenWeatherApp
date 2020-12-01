@@ -9,6 +9,9 @@ buildscript {
         leakCanary_version = "2.5"
         materialTextField_version = "1.0.7"
         navigation_version = "2.3.1"
+        okhttp_version = "4.9.0"
+        retrofit_version = "2.9.0"
+        retrofitCoroutines_version = "0.9.2"
         timber_version = "4.7.1"
     }
 
