@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  * Fragment and Repository.
  *
  */
-class LocationViewModel @ViewModelInject constructor() : ViewModel() {
+class LocationViewModel @ViewModelInject constructor(private val repository: LocationRepository) : ViewModel() {
 
     val location = MutableLiveData("")
 
@@ -30,6 +30,7 @@ class LocationViewModel @ViewModelInject constructor() : ViewModel() {
         editText.doOnTextChanged { text, _, _, _ ->
             CoroutineScope(Dispatchers.Main).launch {
                 delay(1000)
+                repository.getWeather(text.toString())
                 location.value = text.toString()
             }
         }

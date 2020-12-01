@@ -12,6 +12,7 @@ import androidx.lifecycle.distinctUntilChanged
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 /**
@@ -21,6 +22,7 @@ import timber.log.Timber
  * This Fragment shows the location research.
  *
  */
+@AndroidEntryPoint
 class LocationFragment : Fragment() {
 
     /**

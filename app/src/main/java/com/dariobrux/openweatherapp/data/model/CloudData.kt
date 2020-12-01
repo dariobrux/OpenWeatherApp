@@ -16,6 +16,6 @@ data class CloudData(
     /**
      * Cloudiness, %.
      */
-    @field:Json(name = "dt")
+    @field:Json(name = "all")
     var percentage : Int?
 )

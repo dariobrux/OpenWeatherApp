@@ -13,6 +13,7 @@ import com.squareup.moshi.Json
  */
 data class RootData(
 
+    @field:Json(name = "cod")
     var code: Int?,
 
     var message: String?,

@@ -31,7 +31,7 @@ data class CityData(
     /**
      * Shift in seconds from UTC.
      */
-    var timeZone : Int?,
+    var timezone : Long?,
 
     var sunrise : Long?,
 

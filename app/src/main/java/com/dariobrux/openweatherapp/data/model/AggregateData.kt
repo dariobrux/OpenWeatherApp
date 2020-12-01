@@ -38,7 +38,7 @@ data class AggregateData(
     /**
      * Probability of precipitation
      */
-    var pop: Int?,
+    var pop: Double?,
 
     var rain: RainData?,
 
@@ -49,5 +49,6 @@ data class AggregateData(
     /**
      * Time of data forecasted, ISO, UTC.
      */
+    @field:Json(name = "dt_txt")
     var dateText: String?
 )
