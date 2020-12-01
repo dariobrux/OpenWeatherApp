@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.data.models
+package com.dariobrux.openweatherapp.data.model
 
 /**
  *
