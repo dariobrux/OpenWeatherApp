@@ -25,4 +25,27 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/regular_space"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mtf_animationDuration="500"
+        app:mtf_cardCollapsedHeight="4dp"
+        app:mtf_image="@drawable/pin"
+        app:mtf_labelColor="@color/white"
+        app:mtf_openKeyboardOnFocus="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_location"
+            android:importantForAutofill="no"
+            android:inputType="textPostalAddress"
+            android:textColor="@color/blue_gray_900"
+            android:textSize="15sp" />
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
