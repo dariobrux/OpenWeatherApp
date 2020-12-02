@@ -1,6 +1,9 @@
 package com.dariobrux.openweatherapp.common.extension
 
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.dariobrux.openweatherapp.common.Constants
 
 /**
  *
@@ -22,4 +25,12 @@ fun View.toVisible() {
  */
 fun View.toInvisible() {
     this.visibility = View.INVISIBLE
+}
+
+/**
+ * Load the icon from network into the ImageView.
+ * @param icon the icon name.
+ */
+fun ImageView.loadImage(icon: String) {
+    Glide.with(this.context).load(Constants.ICON_BASE_URL + Constants.PATH_NETWORK_ICON + icon + Constants.ICON_FORMAT).into(this)
 }

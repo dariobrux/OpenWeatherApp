@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.distinctUntilChanged
@@ -14,6 +13,7 @@ import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.extension.toInvisible
 import com.dariobrux.openweatherapp.common.extension.toMainActivity
 import com.dariobrux.openweatherapp.common.extension.toVisible
+import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,7 +68,7 @@ class LocationFragment : Fragment() {
         }
 
         viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) { resource ->
-            Timber.d("Location ${resource}")
+            Timber.d("Status ${resource.status}")
             when (resource.status) {
                 Resource.Status.NONE -> {
                     // Do nothing
@@ -76,11 +76,11 @@ class LocationFragment : Fragment() {
                 Resource.Status.LOADING -> {
                     showLoading()
                 }
-                Resource.Status.SUCCESS -> {
-                    showLocationFound()
-                }
                 Resource.Status.ERROR -> {
-                    showLocationNotFound()
+                    binding?.progressLocation?.toInvisible()
+                }
+                Resource.Status.SUCCESS -> {
+                    showLocationFound(resource.data!!)
                 }
             }
         }
@@ -94,22 +94,20 @@ class LocationFragment : Fragment() {
     }
 
     /**
-     * Show the progress on screen during loading state.
+     * Dismiss the progress if it's loading and show a the weather
+     * in the RecyclerView.
+     * @param items the list of [WeatherEntity] to show.
      */
-    private fun showLocationNotFound() {
-        binding?.progressLocation?.toInvisible()
-        Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_LONG).show()
-    }
-
-    /**
-     * Show the progress on screen during loading state.
-     */
-    private fun showLocationFound() {
-        binding?.progressLocation?.toInvisible()
-        Toast.makeText(requireContext(), "Location found", Toast.LENGTH_LONG).show()
+    private fun showLocationFound(items: List<WeatherEntity>) {
+        binding?.run {
+            txtCityName.text = items.firstOrNull()?.cityName ?: ""
+            progressLocation.toInvisible()
+            recyclerWeather.adapter = LocationAdapter(requireContext(), items)
+        }
     }
 
     override fun onDestroyView() {
+        binding?.recyclerWeather?.adapter = null
         binding = null
         super.onDestroyView()
     }

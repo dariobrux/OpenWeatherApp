@@ -63,12 +63,31 @@
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 
+    <TextView
+        android:id="@+id/txtCityName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/regular_space"
+        android:layout_marginTop="@dimen/large_space"
+        android:layout_marginEnd="@dimen/regular_space"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerWeather"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#ffff00"
-        app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+        android:layout_marginTop="@dimen/regular_space"
+        android:paddingStart="@dimen/regular_space"
+        android:paddingEnd="@dimen/regular_space"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCityName" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
