@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.distinctUntilChanged
 import com.dariobrux.openweatherapp.R
-import com.dariobrux.openweatherapp.common.toMainActivity
+import com.dariobrux.openweatherapp.common.extension.toInvisible
+import com.dariobrux.openweatherapp.common.extension.toMainActivity
+import com.dariobrux.openweatherapp.common.extension.toVisible
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,14 +76,37 @@ class LocationFragment : Fragment() {
                 Resource.Status.LOADING -> {
                     showLoading()
                 }
-                Resource.Status.SUCCESS -> { }
-                Resource.Status.ERROR -> {}
+                Resource.Status.SUCCESS -> {
+                    showLocationFound()
+                }
+                Resource.Status.ERROR -> {
+                    showLocationNotFound()
+                }
             }
         }
     }
 
+    /**
+     * Show the progress on screen during loading state.
+     */
     private fun showLoading() {
-        
+        binding?.progressLocation?.toVisible()
+    }
+
+    /**
+     * Show the progress on screen during loading state.
+     */
+    private fun showLocationNotFound() {
+        binding?.progressLocation?.toInvisible()
+        Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Show the progress on screen during loading state.
+     */
+    private fun showLocationFound() {
+        binding?.progressLocation?.toInvisible()
+        Toast.makeText(requireContext(), "Location found", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

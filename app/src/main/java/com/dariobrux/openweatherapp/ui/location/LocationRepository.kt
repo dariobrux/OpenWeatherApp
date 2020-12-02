@@ -3,7 +3,7 @@ package com.dariobrux.openweatherapp.ui.location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dariobrux.openweatherapp.common.Constants
-import com.dariobrux.openweatherapp.common.toWeatherEntityList
+import com.dariobrux.openweatherapp.common.extension.toWeatherEntityList
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper

@@ -26,6 +26,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progressLocation"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/regular_space"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/indigo_200"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:visibility="visible" />
+
     <com.github.florent37.materialtextfield.MaterialTextField
         android:id="@+id/materialTextField"
         android:layout_width="match_parent"

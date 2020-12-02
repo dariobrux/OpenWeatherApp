@@ -22,6 +22,6 @@
             android:layout_marginStart="@dimen/regular_space"
             android:layout_marginTop="@dimen/regular_space"
             android:layout_marginEnd="@dimen/regular_space"
-            motion:layout_constraintTop_toBottomOf="@id/appBar" />
+            motion:layout_constraintTop_toBottomOf="@id/progressLocation" />
     </ConstraintSet>
 </MotionScene>

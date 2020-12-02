@@ -1,5 +1,6 @@
-package com.dariobrux.openweatherapp.common
+package com.dariobrux.openweatherapp.common.extension
 
+import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.model.AggregateData
 import com.dariobrux.openweatherapp.data.remote.model.RootData

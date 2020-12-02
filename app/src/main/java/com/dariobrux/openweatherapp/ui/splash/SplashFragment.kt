@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.openweatherapp.R
-import com.dariobrux.openweatherapp.common.toMainActivity
+import com.dariobrux.openweatherapp.common.extension.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
