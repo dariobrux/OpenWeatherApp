@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  *
@@ -28,7 +29,7 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
      * - the list containing the the date and the [com.dariobrux.openweatherapp.data.local.model.WeatherEntity].
      * - the message.
      */
-    val weather = MutableLiveData(Pair("", Resource(Resource.Status.NONE, emptyList<Any>(), null)))
+    val weather = MutableLiveData(Resource(Resource.Status.NONE, Pair("", emptyList<Any>()), null))
 
 
     /**
@@ -42,14 +43,17 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
 
                 val cityName = text.toString()
 
-                weather.value = Pair(cityName, Resource(Resource.Status.LOADING, weather.value?.second?.data, weather.value?.second?.message))
+                weather.value = Resource(Resource.Status.LOADING, Pair(cityName, weather.value?.data?.second ?: emptyList()), weather.value?.message)
 
                 delay(1000)
 
                 repository.getWeather(cityName).value?.let {
-                    val weatherList = it.data?.toFlattenGroupedDateWeatherList()
 
-                    weather.value = Pair(cityName, Resource(it.status, weatherList, it.message))
+                    Timber.d("Status: ${it.status} and message: ${it.message}")
+
+                    val weatherList = it.data?.toFlattenGroupedDateWeatherList() ?: return@let
+
+                    weather.value = Resource(it.status, Pair(cityName, weatherList), it.message)
                 }
             }
         }

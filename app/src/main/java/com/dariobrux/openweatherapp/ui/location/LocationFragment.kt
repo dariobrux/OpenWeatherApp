@@ -17,7 +17,6 @@ import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 /**
  *
@@ -68,8 +67,7 @@ class LocationFragment : Fragment() {
         }
 
         viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) {
-            Timber.d("Status ${it.second.status}")
-            when (it.second.status) {
+            when (it.status) {
                 Resource.Status.NONE -> {
                     // Do nothing
                 }
@@ -80,7 +78,7 @@ class LocationFragment : Fragment() {
                     binding?.progressLocation?.toInvisible()
                 }
                 Resource.Status.SUCCESS -> {
-                    showLocationFound(it.first, it.second.data!!)
+                    showLocationFound(it.data!!.first, it.data.second)
                 }
             }
         }
