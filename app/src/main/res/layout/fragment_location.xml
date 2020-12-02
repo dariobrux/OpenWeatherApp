@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/fragment_location_scene"
     tools:context=".ui.location.LocationFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,68 +25,83 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ProgressBar
-        android:id="@+id/progressLocation"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/regular_space"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/indigo_200"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/appBar"
-        tools:visibility="visible" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.github.florent37.materialtextfield.MaterialTextField
-        android:id="@+id/materialTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/regular_space"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mtf_animationDuration="500"
-        app:mtf_cardCollapsedHeight="4dp"
-        app:mtf_image="@drawable/pin"
-        app:mtf_labelColor="@color/white"
-        app:mtf_openKeyboardOnFocus="true"
-        tools:layout_editor_absoluteX="20dp">
-
-        <EditText
-            android:id="@+id/editLocation"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/type_location"
-            android:importantForAutofill="no"
-            android:inputType="textPostalAddress|textCapWords"
-            android:textColor="@color/blue_gray_900"
-            android:textSize="15sp" />
+            android:layout_height="match_parent">
 
-    </com.github.florent37.materialtextfield.MaterialTextField>
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:id="@+id/materialTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/regular_space"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mtf_animationDuration="500"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_image="@drawable/pin"
+                app:mtf_labelColor="@color/white"
+                app:mtf_openKeyboardOnFocus="true"
+                tools:layout_editor_absoluteX="20dp">
 
-    <TextView
-        android:id="@+id/txtCityName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/regular_space"
-        android:layout_marginTop="@dimen/large_space"
-        android:layout_marginEnd="@dimen/regular_space"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+                <EditText
+                    android:id="@+id/editLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/type_location"
+                    android:importantForAutofill="no"
+                    android:inputType="textPostalAddress|textCapWords"
+                    android:textColor="@color/blue_gray_900"
+                    android:textSize="15sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerWeather"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/regular_space"
-        android:paddingStart="@dimen/regular_space"
-        android:paddingEnd="@dimen/regular_space"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtCityName" />
+            </com.github.florent37.materialtextfield.MaterialTextField>
 
+            <ProgressBar
+                android:id="@+id/progressLocation"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/regular_space"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/indigo_200"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@id/materialTextField"
+                app:layout_constraintStart_toStartOf="@id/materialTextField"
+                app:layout_constraintTop_toBottomOf="@id/materialTextField"
+                tools:visibility="visible" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+            <TextView
+                android:id="@+id/txtCityName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_space"
+                android:layout_marginTop="@dimen/large_space"
+                android:layout_marginEnd="@dimen/regular_space"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/regular_space"
+                android:paddingStart="@dimen/regular_space"
+                android:paddingEnd="@dimen/regular_space"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtCityName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

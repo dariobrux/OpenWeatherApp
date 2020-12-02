@@ -3,7 +3,6 @@ package com.dariobrux.openweatherapp.ui.location
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -50,19 +49,8 @@ class LocationFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         with(binding!!) {
-
-            materialTextField.setOnTouchListener { _, event ->
-                if (event.action == MotionEvent.ACTION_UP) {
-                    if (!materialTextField.isExpanded) {
-                        materialTextField.expand()
-                    } else {
-                        materialTextField.reduce()
-                    }
-                }
-                false
-            }
-
             viewModel.bind(editLocation)
         }
 
@@ -88,7 +76,9 @@ class LocationFragment : Fragment() {
      * Show the progress on screen during loading state.
      */
     private fun showLoading() {
-        binding?.progressLocation?.toVisible()
+        with(binding!!) {
+            progressLocation.toVisible()
+        }
     }
 
     /**
@@ -99,7 +89,7 @@ class LocationFragment : Fragment() {
      */
     private fun showLocationFound(city: String, items: List<Any>) {
         binding?.run {
-            binding?.txtCityName?.text = city
+            txtCityName.text = city
             progressLocation.toInvisible()
             recyclerWeather.adapter = LocationAdapter(requireContext(), items)
         }
