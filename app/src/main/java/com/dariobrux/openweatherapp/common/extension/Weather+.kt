@@ -42,6 +42,25 @@ fun RootData?.toWeatherEntityList(): List<WeatherEntity> {
 }
 
 /**
+ * Groups the list by date and flattens the result obtaining a list of [Any].
+ */
+fun List<WeatherEntity>.toFlattenGroupedDateWeatherList(): List<Any> {
+    val map = this.groupBy {
+        it.date.format(DateManager.DateFormat.MMM_DD_YYYY)
+    }
+
+    val result = mutableListOf<Any>()
+    map.forEach {
+        result.add(it.key)
+        it.value.forEach { weather ->
+            result.add(weather)
+        }
+    }
+
+    return result
+}
+
+/**
  * Check if valid date, checking if it's not null, not empty string and if is a regular date.
  * @param data the [AggregateData] containing the values to check.
  */

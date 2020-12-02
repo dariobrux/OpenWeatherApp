@@ -67,9 +67,9 @@ class LocationFragment : Fragment() {
             viewModel.bind(editLocation)
         }
 
-        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) { resource ->
-            Timber.d("Status ${resource.status}")
-            when (resource.status) {
+        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) {
+            Timber.d("Status ${it.second.status}")
+            when (it.second.status) {
                 Resource.Status.NONE -> {
                     // Do nothing
                 }
@@ -80,7 +80,7 @@ class LocationFragment : Fragment() {
                     binding?.progressLocation?.toInvisible()
                 }
                 Resource.Status.SUCCESS -> {
-                    showLocationFound(resource.data!!)
+                    showLocationFound(it.first, it.second.data!!)
                 }
             }
         }
@@ -94,13 +94,14 @@ class LocationFragment : Fragment() {
     }
 
     /**
-     * Dismiss the progress if it's loading and show a the weather
+     * Dismiss the progress if it's loading. Show the city name and the weather
      * in the RecyclerView.
+     * @param city the name of the city.
      * @param items the list of [WeatherEntity] to show.
      */
-    private fun showLocationFound(items: List<WeatherEntity>) {
+    private fun showLocationFound(city: String, items: List<Any>) {
         binding?.run {
-            txtCityName.text = items.firstOrNull()?.cityName ?: ""
+            binding?.txtCityName?.text = city
             progressLocation.toInvisible()
             recyclerWeather.adapter = LocationAdapter(requireContext(), items)
         }

@@ -13,13 +13,19 @@ import java.util.*
 
 object DateManager {
 
+    enum class DateFormat(val value: String) {
+        YYYY_MM_DD_HH_MM_SS("yyyy-MM-dd hh:mm:ss"),
+        MMM_DD_YYYY("MMM dd, yyyy")
+    }
+
     /**
      * Convert a string to a Date in format yyyy-MM-dd hh:mm:ss.
      * @param date the date in string format.
+     * @return the new formatted date.
      */
     fun toDate(date: String): Date? {
         return kotlin.runCatching {
-            SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
+            SimpleDateFormat(DateFormat.YYYY_MM_DD_HH_MM_SS.value, Locale.getDefault())
         }.mapCatching {
             it.parse(date)
         }.getOrNull()
