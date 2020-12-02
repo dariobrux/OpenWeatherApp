@@ -46,7 +46,7 @@ fun RootData?.toWeatherEntityList(): List<WeatherEntity> {
  */
 fun List<WeatherEntity>.toFlattenGroupedDateWeatherList(): List<Any> {
     val map = this.groupBy {
-        it.date.format(DateManager.DateFormat.MMM_DD_YYYY)
+        it.date.format(DateManager.DateFormat.MMM_D_YYYY)
     }
 
     val result = mutableListOf<Any>()

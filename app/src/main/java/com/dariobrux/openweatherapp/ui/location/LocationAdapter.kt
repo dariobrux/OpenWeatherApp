@@ -8,6 +8,7 @@ import com.dariobrux.openweatherapp.common.extension.loadImage
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.databinding.ItemDateBinding
 import com.dariobrux.openweatherapp.databinding.ItemWeatherBinding
+import java.util.*
 
 
 /**
@@ -58,7 +59,8 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
     inner class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WeatherEntity) = with(binding) {
             imageWeather.loadImage(item.icon)
-
+            txtWeather.text = item.title
+            txtDescription.text = item.subtitle.capitalize(Locale.getDefault())
         }
     }
 
