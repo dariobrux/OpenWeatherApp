@@ -28,6 +28,13 @@ fun View.toInvisible() {
 }
 
 /**
+ * Change the visibility to GONE
+ */
+fun View.toGone() {
+    this.visibility = View.GONE
+}
+
+/**
  * Load the icon from network into the ImageView.
  * @param icon the icon name.
  */

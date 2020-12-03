@@ -1,5 +1,7 @@
 package com.dariobrux.openweatherapp.common.extension
 
+import android.content.Context
+import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
@@ -49,18 +51,30 @@ fun AggregateData.toWeatherInfoEntity(): WeatherInfoEntity {
         title = this.weathers!!.first().main!!,
         subtitle = this.weathers!!.first().description!!,
         icon = this.weathers!!.first().icon ?: "",
+        humidity = this.main!!.humidity!!
     )
 }
 
 /**
  * Groups the list by date and flattens the result obtaining a list of [Any].
  */
-fun WeatherEntity.toGroupedByDateList(): List<Any> {
+fun WeatherEntity.toGroupedByDateList(context: Context): List<Any> {
 
     val result = mutableListOf<Any>()
 
     val group = this.weatherInfoList.groupBy {
-        DateManager.toDate(it.date)!!.format(DateManager.DateFormat.MMM_D_YYYY)
+        val date = DateManager.toDate(it.date)!!
+        when {
+            date.isToday() -> {
+                context.getString(R.string.today)
+            }
+            date.isTomorrow() -> {
+                context.getString(R.string.tomorrow)
+            }
+            else -> {
+                date.format(DateManager.DateFormat.MMM_D_YYYY)
+            }
+        }
     }
 
     group.forEach {

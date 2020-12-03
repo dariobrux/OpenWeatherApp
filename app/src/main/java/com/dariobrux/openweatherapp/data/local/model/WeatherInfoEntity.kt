@@ -35,6 +35,9 @@ data class WeatherInfoEntity(
     var subtitle: String = "",
 
     @NonNull
-    var icon: String = ""
+    var icon: String = "",
+
+    @NonNull
+    var humidity: Double
 
 ) : Serializable

@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.common.extension.format
+import com.dariobrux.openweatherapp.common.extension.isToday
 import com.dariobrux.openweatherapp.common.extension.loadImage
+import com.dariobrux.openweatherapp.common.extension.toGone
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.FragmentInfoBinding
 import com.dariobrux.openweatherapp.ui.location.LocationViewModel
@@ -54,8 +56,17 @@ class InfoFragment : DialogFragment() {
                 txtTime.text = DateManager.toDate(item.date)?.format(DateManager.DateFormat.MMM_D_H_MM_AA) ?: ""
                 imageWeather.loadImage(item.icon)
                 txtDescription.text = item.subtitle.capitalize(Locale.getDefault())
-                txtMin.text = getString(R.string.min_format, item.tempMin.toInt())
-                txtMax.text = getString(R.string.max_format, item.tempMax.toInt())
+                txtHumidity.text = getString(R.string.humidity_format, item.humidity.toInt())
+
+                if (DateManager.toDate(item.date)?.isToday() == true) {
+                    txtMin.toGone()
+                    txtTemp.text = getString(R.string.min_format, item.temp.toInt())
+                    txtMax.toGone()
+                } else {
+                    txtMin.text = getString(R.string.min_format, item.tempMin.toInt())
+                    txtTemp.toGone()
+                    txtMax.text = getString(R.string.max_format, item.tempMax.toInt())
+                }
             }
         }
     }

@@ -75,39 +75,66 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageWeather" />
 
-            <TextView
-                android:id="@+id/txtMin"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/containerTemp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/regular_space"
-                android:layout_marginTop="@dimen/large_space"
-                android:layout_marginEnd="@dimen/regular_space"
-                android:gravity="center"
-                android:lineSpacingExtra="@dimen/small_space"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/txtMax"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtDescription" />
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/txtDescription">
+
+                <TextView
+                    android:id="@+id/txtMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_space"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/small_space"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTemp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_space"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/small_space"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_space"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/small_space"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/txtMax"
+                android:id="@+id/txtHumidity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/regular_space"
                 android:layout_marginTop="@dimen/large_space"
-                android:layout_marginEnd="@dimen/regular_space"
                 android:gravity="center"
-                android:lineSpacingExtra="@dimen/small_space"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/txtMin"
-                app:layout_constraintTop_toBottomOf="@id/txtDescription" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerTemp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
