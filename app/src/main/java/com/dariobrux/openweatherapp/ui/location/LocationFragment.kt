@@ -60,8 +60,7 @@ class LocationFragment : Fragment() {
             }
         }
 
-        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner)
-        {
+        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.NONE -> {
                     // Do nothing
