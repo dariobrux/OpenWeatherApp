@@ -1,7 +1,5 @@
 package com.dariobrux.openweatherapp.data.local.model
 
-import java.util.*
-
 /**
  *
  * Created by Dario Bruzzese on 1/12/2020.
@@ -11,19 +9,7 @@ import java.util.*
  */
 data class WeatherEntity(
 
-    var date: Date,
-
     var cityName: String,
 
-    var temp: Double,
-
-    var tempMin: Double,
-
-    var tempMax: Double,
-
-    var title: String,
-
-    var subtitle: String,
-
-    var icon: String
+    var weatherInfo: WeatherInfoEntity
 )

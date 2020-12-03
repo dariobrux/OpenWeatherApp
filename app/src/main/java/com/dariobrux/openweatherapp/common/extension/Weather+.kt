@@ -2,6 +2,7 @@ package com.dariobrux.openweatherapp.common.extension
 
 import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
+import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.data.remote.model.AggregateData
 import com.dariobrux.openweatherapp.data.remote.model.RootData
 
@@ -29,16 +30,26 @@ fun RootData?.toWeatherEntityList(): List<WeatherEntity> {
         checkDate(it) && checkTemperature(it) && checkWeather(it)
     }.map {
         WeatherEntity(
-            date = DateManager.toDate(it.dateText!!)!!,
             cityName = this.city!!.name!!,
-            temp = it.main!!.temp!!,
-            tempMin = it.main!!.tempMin!!,
-            tempMax = it.main!!.tempMax!!,
-            title = it.weathers!!.first().main!!,
-            subtitle = it.weathers!!.first().description!!,
-            icon = it.weathers!!.first().icon ?: "",
+            weatherInfo = it.toWeatherInfoEntity()
         )
     }
+}
+
+/**
+ * Convert the [AggregateData] object to a [WeatherInfoEntity] object.
+ * @return the not null [WeatherInfoEntity] object.
+ */
+fun AggregateData.toWeatherInfoEntity(): WeatherInfoEntity {
+    return WeatherInfoEntity(
+        date = DateManager.toDate(this.dateText!!)!!,
+        temp = this.main!!.temp!!,
+        tempMin = this.main!!.tempMin!!,
+        tempMax = this.main!!.tempMax!!,
+        title = this.weathers!!.first().main!!,
+        subtitle = this.weathers!!.first().description!!,
+        icon = this.weathers!!.first().icon ?: "",
+    )
 }
 
 /**
@@ -49,7 +60,7 @@ fun List<WeatherEntity>.toFlattenGroupedDateWeatherList(): List<Any> {
     val result = mutableListOf<Any>()
 
     groupBy {
-        it.date.format(DateManager.DateFormat.MMM_D_YYYY)
+        it.weatherInfo.date.format(DateManager.DateFormat.MMM_D_YYYY)
     }.forEach {
         result.add(it.key)
         result.add(it.value)

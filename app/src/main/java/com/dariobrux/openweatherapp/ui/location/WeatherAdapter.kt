@@ -36,10 +36,10 @@ class WeatherAdapter(private val context: Context, private val items: List<Weath
 
     inner class WeatherViewHolder(private val binding: ItemSingleWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WeatherEntity) = with(binding) {
-            imageWeather.loadImage(item.icon)
-            txtWeather.text = item.subtitle.capitalize(Locale.getDefault())
-            txtTime.text = item.date.format(DateManager.DateFormat.H_MM_AA)
-            txtTemp.text = item.temp.toString()
+            imageWeather.loadImage(item.weatherInfo.icon)
+            txtWeather.text = item.weatherInfo.subtitle.capitalize(Locale.getDefault())
+            txtTime.text = item.weatherInfo.date.format(DateManager.DateFormat.H_MM_AA)
+            txtTemp.text = item.weatherInfo.temp.toString()
         }
     }
 }
