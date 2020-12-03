@@ -16,7 +16,8 @@ object DateManager {
     enum class DateFormat(val value: String) {
         YYYY_MM_DD_HH_MM_SS("yyyy-MM-dd hh:mm:ss"),
         MMM_D_YYYY("MMM d, yyyy"),
-        H_MM_AA("h:mm aa")
+        H_MM_AA("h:mm aa"),
+        MMM_D_H_MM_AA("MMM d, h:mm aa"),
     }
 
     /**

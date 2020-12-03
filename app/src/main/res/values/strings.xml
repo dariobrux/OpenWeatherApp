@@ -3,4 +3,6 @@
     <string name="splash">Cloudy with Sun</string>
     <string name="type_location">Type a location</string>
     <string name="weather">Weather</string>
+    <string name="min_format">Min\n%d</string>
+    <string name="max_format">Max\n%d</string>
 </resources>

@@ -20,7 +20,11 @@ import com.dariobrux.openweatherapp.ui.util.WeatherSpaceItemDecoration
  * This adapter displays the date and the weather conditions.
  *
  */
-class LocationAdapter(private val context: Context, private val items: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
+class LocationAdapter(
+    private val context: Context,
+    private val items: List<Any>,
+    private val listener: WeatherAdapter.OnItemSelectedListener?
+) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     @Suppress("UNCHECKED_CAST")
     override fun getItemViewType(position: Int): Int {
@@ -65,7 +69,7 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
             recyclerGroupItem.let {
                 it.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 it.addItemDecoration(WeatherSpaceItemDecoration(context.resources.getDimensionPixelSize(R.dimen.regular_space)))
-                it.adapter = WeatherAdapter(context, item)
+                it.adapter = WeatherAdapter(context, item, listener)
             }
         }
     }

@@ -11,7 +11,6 @@ import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.ItemSingleWeatherBinding
 import java.util.*
 
-
 /**
  *
  * Created by Dario Bruzzese on 3/12/2020.
@@ -19,7 +18,23 @@ import java.util.*
  * This adapter displays the weather conditions.
  *
  */
-class WeatherAdapter(private val context: Context, private val items: List<WeatherInfoEntity>) : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder?>() {
+class WeatherAdapter(
+    private val context: Context,
+    private val items: List<WeatherInfoEntity>,
+    private val listener: OnItemSelectedListener?
+) : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder?>() {
+
+    /**
+     * This interface contains the callback to invoke when an item has been selected.
+     */
+    interface OnItemSelectedListener {
+
+        /**
+         * Invoked when an item has been selected.
+         * @param item the [WeatherInfoEntity] item selected.
+         */
+        fun onItemSelected(item: WeatherInfoEntity)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         return WeatherViewHolder(ItemSingleWeatherBinding.inflate(LayoutInflater.from(context), parent, false))
@@ -36,6 +51,11 @@ class WeatherAdapter(private val context: Context, private val items: List<Weath
 
     inner class WeatherViewHolder(private val binding: ItemSingleWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WeatherInfoEntity) = with(binding) {
+
+            cardRoot.setOnClickListener {
+                listener?.onItemSelected(item)
+            }
+
             imageWeather.loadImage(item.icon)
             txtWeather.text = item.subtitle.capitalize(Locale.getDefault())
             txtTime.text = DateManager.toDate(item.date)!!.format(DateManager.DateFormat.H_MM_AA)

@@ -3,6 +3,7 @@ package com.dariobrux.openweatherapp.data.local.model
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 /**
  *
@@ -35,4 +36,5 @@ data class WeatherInfoEntity(
 
     @NonNull
     var icon: String = ""
-)
+
+) : Serializable

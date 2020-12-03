@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.distinctUntilChanged
+import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.extension.toInvisible
 import com.dariobrux.openweatherapp.common.extension.toMainActivity
 import com.dariobrux.openweatherapp.common.extension.toVisible
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
+import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
  *
  */
 @AndroidEntryPoint
-class LocationFragment : Fragment() {
+class LocationFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
@@ -52,6 +54,7 @@ class LocationFragment : Fragment() {
 
         with(binding!!) {
             viewModel.bind(editLocation)
+            progressLocation.toInvisible()
         }
 
         viewModel.cachedWeather.observe(viewLifecycleOwner) {
@@ -97,7 +100,7 @@ class LocationFragment : Fragment() {
         binding?.run {
             txtCityName.text = city
             progressLocation.toInvisible()
-            recyclerWeather.adapter = LocationAdapter(requireContext(), items)
+            recyclerWeather.adapter = LocationAdapter(requireContext(), items, this@LocationFragment)
         }
     }
 
@@ -105,6 +108,16 @@ class LocationFragment : Fragment() {
         binding?.recyclerWeather?.adapter = null
         binding = null
         super.onDestroyView()
+    }
+
+    /**
+     * Invoked when an item has been selected.
+     * @param item the [WeatherInfoEntity] item selected.
+     */
+    override fun onItemSelected(item: WeatherInfoEntity) {
+        NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_locationFragment_to_infoFragment, Bundle().apply {
+            putSerializable("weather", item)
+        })
     }
 
 }
