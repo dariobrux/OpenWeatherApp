@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.dariobrux.openweatherapp.data.local.converter.DateConverter
 import com.dariobrux.openweatherapp.data.local.converter.WeatherInfoConverter
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
@@ -26,7 +25,6 @@ import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 )
 @TypeConverters(
     WeatherInfoConverter::class,
-    DateConverter::class
 )
 abstract class WeatherDatabase : RoomDatabase() {
 

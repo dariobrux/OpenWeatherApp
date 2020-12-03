@@ -5,12 +5,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.dariobrux.openweatherapp.common.extension.toGroupedByDateList
 import com.dariobrux.openweatherapp.data.remote.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 /**
@@ -32,6 +30,28 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
      */
     val weather = MutableLiveData(Resource(Resource.Status.NONE, Pair("", emptyList<Any>()), null))
 
+    /**
+     * This is the cached weather. Inside it:
+     * - the status [com.dariobrux.openweatherapp.data.remote.Resource.Status].
+     * - the data that's a Pair with the city name and the
+     *   list containing the Pairs with date and [com.dariobrux.openweatherapp.data.local.model.WeatherEntity].
+     * - the message.
+     */
+    val cachedWeather = liveData {
+        val result: Resource<Pair<String, List<Any>>>
+
+        val resource = repository.getCachedWeather()
+
+        val status = resource.value!!.status
+        val message = resource.value!!.message
+
+        val cityName = resource.value!!.data?.cityName ?: ""
+        val groupedList = resource.value!!.data?.toGroupedByDateList() ?: emptyList()
+
+        result = Resource(status, Pair(cityName, groupedList), message)
+
+        emit(result)
+    }
 
     /**
      * Bind the location EditText observing its changing text.

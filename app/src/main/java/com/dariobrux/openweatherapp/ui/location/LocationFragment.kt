@@ -54,7 +54,14 @@ class LocationFragment : Fragment() {
             viewModel.bind(editLocation)
         }
 
-        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) {
+        viewModel.cachedWeather.observe(viewLifecycleOwner) {
+            if (it.status == Resource.Status.SUCCESS) {
+                showLocationFound(it.data!!.first, it.data.second)
+            }
+        }
+
+        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner)
+        {
             when (it.status) {
                 Resource.Status.NONE -> {
                     // Do nothing

@@ -42,7 +42,7 @@ fun RootData?.toWeatherEntity(): WeatherEntity? {
  */
 fun AggregateData.toWeatherInfoEntity(): WeatherInfoEntity {
     return WeatherInfoEntity(
-        date = DateManager.toDate(this.dateText!!)!!,
+        date = this.dateText!!,
         temp = this.main!!.temp!!,
         tempMin = this.main!!.tempMin!!,
         tempMax = this.main!!.tempMax!!,
@@ -59,9 +59,11 @@ fun WeatherEntity.toGroupedByDateList(): List<Any> {
 
     val result = mutableListOf<Any>()
 
-    this.weatherInfoList.groupBy {
-        it.date.format(DateManager.DateFormat.MMM_D_YYYY)
-    }.forEach {
+    val group = this.weatherInfoList.groupBy {
+        DateManager.toDate(it.date)!!.format(DateManager.DateFormat.MMM_D_YYYY)
+    }
+
+    group.forEach {
         result.add(it.key)
         result.add(it.value)
     }

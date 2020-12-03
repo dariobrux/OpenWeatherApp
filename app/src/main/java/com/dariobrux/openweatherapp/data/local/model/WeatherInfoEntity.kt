@@ -3,7 +3,6 @@ package com.dariobrux.openweatherapp.data.local.model
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 /**
  *
@@ -17,17 +16,23 @@ data class WeatherInfoEntity(
 
     @PrimaryKey
     @NonNull
-    var date: Date,
+    var date: String = "",
 
-    var temp: Double,
+    @NonNull
+    var temp: Double = 0.0,
 
-    var tempMin: Double,
+    @NonNull
+    var tempMin: Double = 0.0,
 
-    var tempMax: Double,
+    @NonNull
+    var tempMax: Double = 0.0,
 
-    var title: String,
+    @NonNull
+    var title: String = "",
 
-    var subtitle: String,
+    @NonNull
+    var subtitle: String = "",
 
-    var icon: String
+    @NonNull
+    var icon: String = ""
 )

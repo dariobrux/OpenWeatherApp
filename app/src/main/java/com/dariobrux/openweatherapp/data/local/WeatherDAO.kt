@@ -20,10 +20,10 @@ interface WeatherDAO {
 
     /**
      * Get the weather stored.
-     * @return the [WeatherEntity].
+     * @return the [WeatherEntity] or null.
      */
     @Query("Select * from weather")
-    fun getWeather(): WeatherEntity
+    fun getWeather(): WeatherEntity?
 
     /**
      * Insert the weather in the database.
@@ -32,4 +32,10 @@ interface WeatherDAO {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWeather(weatherEntity: WeatherEntity)
+
+    /**
+     * Delete all from the database.
+     */
+    @Query("DELETE FROM weather")
+    fun deleteAll()
 }

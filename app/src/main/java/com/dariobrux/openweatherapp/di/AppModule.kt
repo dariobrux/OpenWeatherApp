@@ -3,6 +3,7 @@ package com.dariobrux.openweatherapp.di
 import android.content.Context
 import com.dariobrux.openweatherapp.BuildConfig
 import com.dariobrux.openweatherapp.common.Constants
+import com.dariobrux.openweatherapp.data.local.WeatherDAO
 import com.dariobrux.openweatherapp.data.local.WeatherDatabase
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper
 import com.dariobrux.openweatherapp.data.remote.WeatherService
@@ -67,7 +68,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLocationRepository(apiHelper: WeatherApiHelper) = LocationRepository(apiHelper)
+    fun provideLocationRepository(apiHelper: WeatherApiHelper, dao: WeatherDAO) = LocationRepository(apiHelper, dao)
 
     @Singleton
     @Provides

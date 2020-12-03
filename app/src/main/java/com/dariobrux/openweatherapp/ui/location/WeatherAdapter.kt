@@ -38,7 +38,7 @@ class WeatherAdapter(private val context: Context, private val items: List<Weath
         fun bind(item: WeatherInfoEntity) = with(binding) {
             imageWeather.loadImage(item.icon)
             txtWeather.text = item.subtitle.capitalize(Locale.getDefault())
-            txtTime.text = item.date.format(DateManager.DateFormat.H_MM_AA)
+            txtTime.text = DateManager.toDate(item.date)!!.format(DateManager.DateFormat.H_MM_AA)
             txtTemp.text = item.temp.toString()
         }
     }

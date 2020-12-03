@@ -18,7 +18,8 @@ data class WeatherEntity(
 
     @PrimaryKey
     @NonNull
-    var cityName: String,
+    var cityName: String = "",
 
-    var weatherInfoList: List<WeatherInfoEntity>
+    @NonNull
+    var weatherInfoList: List<WeatherInfoEntity> = emptyList()
 )
