@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_space">10dp</dimen>
     <dimen name="regular_space">20dp</dimen>
     <dimen name="large_space">40dp</dimen>
+    <dimen name="regular_corner_radius">16dp</dimen>
+    <dimen name="regular_weather_icon_size">72dp</dimen>
+    <dimen name="regular_weather_card_width">150dp</dimen>
 </resources>

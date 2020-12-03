@@ -26,7 +26,8 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
     /**
      * The weather is mapped into a [Resource] object. Inside it:
      * - the status [com.dariobrux.openweatherapp.data.remote.Resource.Status].
-     * - the list containing the the date and the [com.dariobrux.openweatherapp.data.local.model.WeatherEntity].
+     * - the data that's a Pair with the city name and the
+     *   list containing the Pairs with date and [com.dariobrux.openweatherapp.data.local.model.WeatherEntity].
      * - the message.
      */
     val weather = MutableLiveData(Resource(Resource.Status.NONE, Pair("", emptyList<Any>()), null))

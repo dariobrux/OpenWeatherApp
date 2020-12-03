@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/regular_weather_card_width"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/blue_grey_700"
+    app:cardCornerRadius="@dimen/regular_corner_radius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="@dimen/small_space"
+            android:paddingTop="@dimen/small_space"
+            android:paddingEnd="@dimen/small_space"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Time" />
+
+        <ImageView
+            android:id="@+id/imageWeather"
+            android:layout_width="@dimen/regular_weather_icon_size"
+            android:layout_height="@dimen/regular_weather_icon_size"
+            android:contentDescription="@string/weather"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/txtWeather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTime" />
+
+        <TextView
+            android:id="@+id/txtWeather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:includeFontPadding="false"
+            android:paddingStart="@dimen/small_space"
+            android:paddingEnd="@dimen/small_space"
+            android:paddingBottom="@dimen/small_space"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/imageWeather"
+            app:layout_constraintTop_toBottomOf="@id/imageWeather"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/txtTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_space"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageWeather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageWeather"
+            tools:text="Temp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

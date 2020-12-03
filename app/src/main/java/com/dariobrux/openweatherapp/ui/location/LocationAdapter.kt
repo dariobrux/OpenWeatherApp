@@ -3,12 +3,13 @@ package com.dariobrux.openweatherapp.ui.location
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dariobrux.openweatherapp.common.extension.loadImage
+import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.databinding.ItemDateBinding
-import com.dariobrux.openweatherapp.databinding.ItemWeatherBinding
-import java.util.*
+import com.dariobrux.openweatherapp.databinding.ItemGroupedWeatherBinding
+import com.dariobrux.openweatherapp.ui.util.WeatherSpaceItemDecoration
 
 
 /**
@@ -20,11 +21,12 @@ import java.util.*
  */
 class LocationAdapter(private val context: Context, private val items: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
+    @Suppress("UNCHECKED_CAST")
     override fun getItemViewType(position: Int): Int {
-        if (items[position] is WeatherEntity) {
-            return WEATHER
-        } else if (items[position] is String) {
+        if (items[position] is String) {
             return DATE
+        } else if (items[position] is List<*> && items[position] as? List<WeatherEntity> != null) {
+            return WEATHER
         }
         return -1
     }
@@ -32,7 +34,7 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             WEATHER -> {
-                WeatherViewHolder(ItemWeatherBinding.inflate(LayoutInflater.from(context), parent, false))
+                WeatherViewHolder(ItemGroupedWeatherBinding.inflate(LayoutInflater.from(context), parent, false))
             }
             else -> {
                 DateViewHolder(ItemDateBinding.inflate(LayoutInflater.from(context), parent, false))
@@ -40,11 +42,12 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
         when (holder.itemViewType) {
             WEATHER -> {
-                (item as? WeatherEntity)?.let { (holder as WeatherViewHolder).bind(it) }
+                (item as? List<*>)?.let { (holder as WeatherViewHolder).bind(it as List<WeatherEntity>) }
             }
             else -> {
                 (item as? String)?.let { (holder as DateViewHolder).bind(it) }
@@ -56,11 +59,13 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
         return items.size
     }
 
-    inner class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherEntity) = with(binding) {
-            imageWeather.loadImage(item.icon)
-            txtWeather.text = item.title
-            txtDescription.text = item.subtitle.capitalize(Locale.getDefault())
+    inner class WeatherViewHolder(private val binding: ItemGroupedWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: List<WeatherEntity>) = with(binding) {
+            recyclerGroupItem.let {
+                it.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                it.addItemDecoration(WeatherSpaceItemDecoration(context.resources.getDimensionPixelSize(R.dimen.regular_space)))
+                it.adapter = WeatherAdapter(context, item)
+            }
         }
     }
 
