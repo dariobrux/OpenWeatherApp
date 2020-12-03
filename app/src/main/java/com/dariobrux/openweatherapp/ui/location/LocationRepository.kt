@@ -3,7 +3,7 @@ package com.dariobrux.openweatherapp.ui.location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dariobrux.openweatherapp.common.Constants
-import com.dariobrux.openweatherapp.common.extension.toWeatherEntityList
+import com.dariobrux.openweatherapp.common.extension.toWeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper
@@ -28,10 +28,10 @@ class LocationRepository @Inject constructor(private val api: WeatherApiHelper) 
      * @param cityName the name of the city.
      * @return the [WeatherEntity] object mapped into a [Resource], inside a [LiveData].
      */
-    suspend fun getWeather(cityName: String): LiveData<Resource<List<WeatherEntity>>> {
+    suspend fun getWeather(cityName: String): LiveData<Resource<WeatherEntity>> {
 
         var status = Resource.Status.NONE
-        var data = emptyList<WeatherEntity>()
+        var data : WeatherEntity? = null
         var message: String? = null
 
         val result = MutableLiveData(Resource(status, data, message))
@@ -45,13 +45,13 @@ class LocationRepository @Inject constructor(private val api: WeatherApiHelper) 
             }.onSuccess {
 
                 status = it.status
-                data = it.data.toWeatherEntityList()
+                data = it.data.toWeatherEntity()
                 message = it.message
 
             }.onFailure {
 
                 status = Resource.Status.ERROR
-                data = emptyList()
+                data = null
                 message = "Problems while retrieve the data."
 
                 Timber.w(message)

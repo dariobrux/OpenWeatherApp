@@ -1,5 +1,8 @@
 package com.dariobrux.openweatherapp.data.local.model
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
 /**
@@ -9,8 +12,11 @@ import java.util.*
  * This is the info entity about the weather stored in the database and shown on screen.
  *
  */
+@Entity(tableName = "weatherInfo")
 data class WeatherInfoEntity(
 
+    @PrimaryKey
+    @NonNull
     var date: Date,
 
     var temp: Double,

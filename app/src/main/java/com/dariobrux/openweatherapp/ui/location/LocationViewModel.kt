@@ -5,7 +5,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dariobrux.openweatherapp.common.extension.toFlattenGroupedDateWeatherList
+import com.dariobrux.openweatherapp.common.extension.toGroupedByDateList
 import com.dariobrux.openweatherapp.data.remote.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +52,7 @@ class LocationViewModel @ViewModelInject constructor(private val repository: Loc
 
                     Timber.d("Status: ${it.status} and message: ${it.message}")
 
-                    val weatherList = it.data?.toFlattenGroupedDateWeatherList() ?: return@let
+                    val weatherList = it.data?.toGroupedByDateList() ?: return@let
 
                     weather.value = Resource(it.status, Pair(cityName, weatherList), it.message)
                 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
+import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.ItemDateBinding
 import com.dariobrux.openweatherapp.databinding.ItemGroupedWeatherBinding
 import com.dariobrux.openweatherapp.ui.util.WeatherSpaceItemDecoration
@@ -47,7 +48,7 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
         val item = items[position]
         when (holder.itemViewType) {
             WEATHER -> {
-                (item as? List<*>)?.let { (holder as WeatherViewHolder).bind(it as List<WeatherEntity>) }
+                (item as? List<WeatherInfoEntity>)?.let { (holder as WeatherViewHolder).bind(it) }
             }
             else -> {
                 (item as? String)?.let { (holder as DateViewHolder).bind(it) }
@@ -60,7 +61,7 @@ class LocationAdapter(private val context: Context, private val items: List<Any>
     }
 
     inner class WeatherViewHolder(private val binding: ItemGroupedWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: List<WeatherEntity>) = with(binding) {
+        fun bind(item: List<WeatherInfoEntity>) = with(binding) {
             recyclerGroupItem.let {
                 it.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 it.addItemDecoration(WeatherSpaceItemDecoration(context.resources.getDimensionPixelSize(R.dimen.regular_space)))

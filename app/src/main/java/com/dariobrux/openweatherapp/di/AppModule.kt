@@ -1,14 +1,16 @@
 package com.dariobrux.openweatherapp.di
 
-import android.provider.SyncStateContract
+import android.content.Context
 import com.dariobrux.openweatherapp.BuildConfig
 import com.dariobrux.openweatherapp.common.Constants
+import com.dariobrux.openweatherapp.data.local.WeatherDatabase
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper
 import com.dariobrux.openweatherapp.data.remote.WeatherService
 import com.dariobrux.openweatherapp.ui.location.LocationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,12 +37,15 @@ object AppModule {
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        OkHttpClient.Builder()
+        OkHttpClient
+            .Builder()
+            .hostnameVerifier { _, _ -> true }
             .addInterceptor(loggingInterceptor)
             .build()
     } else {
         OkHttpClient
             .Builder()
+            .hostnameVerifier { _, _ -> true }
             .build()
     }
 
@@ -63,4 +68,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideLocationRepository(apiHelper: WeatherApiHelper) = LocationRepository(apiHelper)
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext appContext: Context) = WeatherDatabase.getInstance(appContext)
+
+    @Singleton
+    @Provides
+    fun provideDAO(db: WeatherDatabase) = db.weatherDAO()
 }

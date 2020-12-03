@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.common.extension.format
 import com.dariobrux.openweatherapp.common.extension.loadImage
-import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
+import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.ItemSingleWeatherBinding
 import java.util.*
 
@@ -19,7 +19,7 @@ import java.util.*
  * This adapter displays the weather conditions.
  *
  */
-class WeatherAdapter(private val context: Context, private val items: List<WeatherEntity>) : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder?>() {
+class WeatherAdapter(private val context: Context, private val items: List<WeatherInfoEntity>) : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder?>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         return WeatherViewHolder(ItemSingleWeatherBinding.inflate(LayoutInflater.from(context), parent, false))
@@ -35,11 +35,11 @@ class WeatherAdapter(private val context: Context, private val items: List<Weath
     }
 
     inner class WeatherViewHolder(private val binding: ItemSingleWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherEntity) = with(binding) {
-            imageWeather.loadImage(item.weatherInfo.icon)
-            txtWeather.text = item.weatherInfo.subtitle.capitalize(Locale.getDefault())
-            txtTime.text = item.weatherInfo.date.format(DateManager.DateFormat.H_MM_AA)
-            txtTemp.text = item.weatherInfo.temp.toString()
+        fun bind(item: WeatherInfoEntity) = with(binding) {
+            imageWeather.loadImage(item.icon)
+            txtWeather.text = item.subtitle.capitalize(Locale.getDefault())
+            txtTime.text = item.date.format(DateManager.DateFormat.H_MM_AA)
+            txtTemp.text = item.temp.toString()
         }
     }
 }

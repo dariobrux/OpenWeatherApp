@@ -15,25 +15,25 @@ import com.dariobrux.openweatherapp.data.remote.model.RootData
  */
 
 /**
- * Convert the [RootData] object to a list of [WeatherEntity].
- * @return the not null and not empty list of [WeatherEntity].
+ * Convert the [RootData] object to a [WeatherEntity] object.
+ * @return the nullable [WeatherEntity].
  */
-fun RootData?.toWeatherEntityList(): List<WeatherEntity> {
+fun RootData?.toWeatherEntity(): WeatherEntity? {
 
-    this ?: return emptyList()
-    this.city ?: return emptyList()
-    this.city!!.name ?: return emptyList()
-    this.city!!.timezone ?: return emptyList()
-    if (this.aggregates.isNullOrEmpty()) return emptyList()
+    this ?: return null
+    this.city ?: return null
+    this.city!!.name ?: return null
+    this.city!!.timezone ?: return null
+    if (this.aggregates.isNullOrEmpty()) return null
 
-    return this.aggregates!!.filter {
-        checkDate(it) && checkTemperature(it) && checkWeather(it)
-    }.map {
-        WeatherEntity(
-            cityName = this.city!!.name!!,
-            weatherInfo = it.toWeatherInfoEntity()
-        )
-    }
+    return WeatherEntity(
+        cityName = this.city!!.name!!,
+        weatherInfoList = this.aggregates!!.filter {
+            checkDate(it) && checkTemperature(it) && checkWeather(it)
+        }.map {
+            it.toWeatherInfoEntity()
+        }
+    )
 }
 
 /**
@@ -55,12 +55,12 @@ fun AggregateData.toWeatherInfoEntity(): WeatherInfoEntity {
 /**
  * Groups the list by date and flattens the result obtaining a list of [Any].
  */
-fun List<WeatherEntity>.toFlattenGroupedDateWeatherList(): List<Any> {
+fun WeatherEntity.toGroupedByDateList(): List<Any> {
 
     val result = mutableListOf<Any>()
 
-    groupBy {
-        it.weatherInfo.date.format(DateManager.DateFormat.MMM_D_YYYY)
+    this.weatherInfoList.groupBy {
+        it.date.format(DateManager.DateFormat.MMM_D_YYYY)
     }.forEach {
         result.add(it.key)
         result.add(it.value)
