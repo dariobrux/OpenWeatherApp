@@ -9,6 +9,7 @@ buildscript {
         kotlin_version = "1.4.20"
         leakCanary_version = "2.5"
         materialTextField_version = "1.0.7"
+        mockito_version = "3.6.0"
         navigation_version = "2.3.1"
         okhttp_version = "4.9.0"
         retrofit_version = "2.9.0"
