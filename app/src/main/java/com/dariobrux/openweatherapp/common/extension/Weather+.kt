@@ -3,9 +3,11 @@ package com.dariobrux.openweatherapp.common.extension
 import android.content.Context
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.DateManager
+import com.dariobrux.openweatherapp.data.local.model.CityEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.data.remote.model.AggregateData
+import com.dariobrux.openweatherapp.data.remote.model.CityData
 import com.dariobrux.openweatherapp.data.remote.model.RootData
 
 /**
@@ -29,13 +31,33 @@ fun RootData?.toWeatherEntity(): WeatherEntity? {
     if (this.aggregates.isNullOrEmpty()) return null
 
     return WeatherEntity(
-        cityName = this.city!!.name!!,
-        weatherInfoList = this.aggregates!!.filter {
-            checkDate(it) && checkTemperature(it) && checkWeather(it)
-        }.map {
-            it.toWeatherInfoEntity()
-        }
+        city = this.city!!.toCityEntity(),
+        weatherInfoList = this.aggregates!!.toWeatherInfoEntityList(),
     )
+}
+
+/**
+ * Convert a [CityData] object to a [CityEntity] object.
+ * @return the new not nullable [CityEntity] object.
+ */
+fun CityData.toCityEntity(): CityEntity {
+    return CityEntity(
+        cityName = this.name!!,
+        sunrise = DateManager.toDate(this.sunrise!!, this.timezone!!) ?: "",
+        sunset = DateManager.toDate(this.sunset!!, this.timezone!!) ?: ""
+    )
+}
+
+/**
+ * Convert a list of [AggregateData] to a list of [WeatherInfoEntity].
+ * @return the new not nullable list of [WeatherInfoEntity].
+ */
+fun List<AggregateData>.toWeatherInfoEntityList(): List<WeatherInfoEntity> {
+    return this.filter {
+        checkDate(it) && checkTemperature(it) && checkWeather(it)
+    }.map {
+        it.toWeatherInfoEntity()
+    }
 }
 
 /**

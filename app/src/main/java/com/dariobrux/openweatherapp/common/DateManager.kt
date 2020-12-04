@@ -32,4 +32,15 @@ object DateManager {
             it.parse(date)
         }.getOrNull()
     }
+
+    /**
+     * Convert a date from milliseconds to date object.
+     * @param millis the date in milliseconds format.
+     * @return the new date object.
+     */
+    fun toDate(millis: Long, timezone: Long): String? {
+        val formatter = SimpleDateFormat(DateFormat.H_MM_AA.value, Locale.getDefault())
+        formatter.timeZone = TimeZone.getTimeZone("GMT")
+        return formatter.format(Date((millis + timezone) * 1000))
+    }
 }

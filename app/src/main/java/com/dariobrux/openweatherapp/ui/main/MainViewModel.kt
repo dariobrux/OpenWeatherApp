@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.dariobrux.openweatherapp.common.extension.toGroupedByDateList
+import com.dariobrux.openweatherapp.data.local.model.CityEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +34,7 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
      *   list containing the Pairs with date and [com.dariobrux.openweatherapp.data.local.model.WeatherEntity].
      * - the message.
      */
-    val weather = MutableLiveData(Resource(Resource.Status.NONE, Pair("", emptyList<Any>()), null))
+    val weather = MutableLiveData(Resource(Resource.Status.NONE, Pair<CityEntity?, List<Any>>(null, emptyList()), null))
 
     /**
      * This is the cached weather. Inside it:
@@ -43,17 +44,17 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
      * - the message.
      */
     val cachedWeather = liveData {
-        val result: Resource<Pair<String, List<Any>>>
+        val result: Resource<Pair<CityEntity?, List<Any>>>
 
         val resource = repository.getCachedWeather()
 
         val status = resource.value!!.status
         val message = resource.value!!.message
 
-        val cityName = resource.value!!.data?.cityName ?: ""
+        val city = resource.value!!.data?.city
         val groupedList = resource.value!!.data?.toGroupedByDateList(context) ?: emptyList()
 
-        result = Resource(status, Pair(cityName, groupedList), message)
+        result = Resource(status, Pair(city, groupedList), message)
 
         emit(result)
     }
@@ -67,17 +68,15 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
         editText.doOnTextChanged { text, _, _, _ ->
             CoroutineScope(Dispatchers.Main).launch {
 
-                val cityName = text.toString()
-
                 var status: Resource.Status = Resource.Status.LOADING
-                var data: Pair<String, List<Any>>? = Pair(cityName, weather.value?.data?.second ?: emptyList())
+                var data: Pair<CityEntity?, List<Any>>? = Pair(weather.value?.data?.first, weather.value?.data?.second ?: emptyList())
                 var message: String? = weather.value?.message
 
                 weather.value = Resource(status, data, message)
 
                 delay(1000)
 
-                val value = repository.getWeather(cityName).value
+                val value = repository.getWeather(text.toString()).value
 
                 if (value != null) {
 
@@ -94,7 +93,7 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
                     } else {
 
                         status = Resource.Status.SUCCESS
-                        data = Pair(cityName, weatherList)
+                        data = Pair(value.data.city, weatherList)
                         message = value.message
                     }
                 } else {

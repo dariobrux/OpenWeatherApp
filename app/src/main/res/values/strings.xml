@@ -11,4 +11,6 @@
     <string name="humidity_format">Humidity %d%%</string>
     <string name="degree_format">%d°</string>
     <string name="at_format">%s at %s</string>
+    <string name="sunrise_format">Sunrise\n%s</string>
+    <string name="sunset_format">Sunset\n%s</string>
 </resources>

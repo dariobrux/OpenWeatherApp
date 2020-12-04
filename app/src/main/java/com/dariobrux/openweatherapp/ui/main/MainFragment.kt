@@ -12,6 +12,7 @@ import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.extension.toInvisible
 import com.dariobrux.openweatherapp.common.extension.toMainActivity
 import com.dariobrux.openweatherapp.common.extension.toVisible
+import com.dariobrux.openweatherapp.data.local.model.CityEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
@@ -60,7 +61,7 @@ class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
 
         viewModel.cachedWeather.observe(viewLifecycleOwner) {
             if (it.status == Resource.Status.SUCCESS) {
-                showLocationFound(it.data!!.first, it.data.second)
+                showLocationFound(it.data!!.first!!, it.data.second)
             }
         }
 
@@ -76,7 +77,7 @@ class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
                     binding?.progressLocation?.toInvisible()
                 }
                 Resource.Status.SUCCESS -> {
-                    showLocationFound(it.data!!.first, it.data.second)
+                    showLocationFound(it.data!!.first!!, it.data.second)
                 }
             }
         }
@@ -97,11 +98,13 @@ class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
      * @param city the name of the city.
      * @param items the list of [WeatherEntity] to show.
      */
-    private fun showLocationFound(city: String, items: List<Any>) {
+    private fun showLocationFound(city: CityEntity, items: List<Any>) {
         binding?.run {
-            txtCityName.text = city
+            txtCityName.text = city.cityName
             progressLocation.toInvisible()
             recyclerWeather.adapter = GroupedAdapter(requireContext(), items, this@MainFragment)
+            txtSunrise.text = getString(R.string.sunrise_format, city.sunrise)
+            txtSunset.text = getString(R.string.sunset_format, city.sunset)
         }
     }
 
