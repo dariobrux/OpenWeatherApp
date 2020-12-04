@@ -10,7 +10,10 @@ import androidx.lifecycle.liveData
 import com.dariobrux.openweatherapp.common.extension.toGroupedByDateList
 import com.dariobrux.openweatherapp.data.remote.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -66,18 +69,42 @@ class LocationViewModel @ViewModelInject constructor(@ApplicationContext private
 
                 val cityName = text.toString()
 
-                weather.value = Resource(Resource.Status.LOADING, Pair(cityName, weather.value?.data?.second ?: emptyList()), weather.value?.message)
+                var status: Resource.Status = Resource.Status.LOADING
+                var data: Pair<String, List<Any>>? = Pair(cityName, weather.value?.data?.second ?: emptyList())
+                var message: String? = weather.value?.message
+
+                weather.value = Resource(status, data, message)
 
                 delay(1000)
 
-                repository.getWeather(cityName).value?.let {
+                val value = repository.getWeather(cityName).value
 
-                    Timber.d("Status: ${it.status} and message: ${it.message}")
+                if (value != null) {
 
-                    val weatherList = it.data?.toGroupedByDateList(context) ?: return@let
+                    Timber.d("Status: ${value.status} and message: ${value.message}")
 
-                    weather.value = Resource(it.status, Pair(cityName, weatherList), it.message)
+                    val weatherList = value.data?.toGroupedByDateList(context)
+
+                    if (weatherList.isNullOrEmpty()) {
+
+                        status = value.status
+                        data = null
+                        message = null
+
+                    } else {
+
+                        status = Resource.Status.SUCCESS
+                        data = Pair(cityName, weatherList)
+                        message = value.message
+                    }
+                } else {
+
+                    status = Resource.Status.ERROR
+                    data = null
+                    message = null
                 }
+
+                weather.value = Resource(status, data, message)
             }
         }
     }

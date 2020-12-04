@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.extension.toInvisible
@@ -63,7 +62,7 @@ class LocationFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
             }
         }
 
-        viewModel.weather.distinctUntilChanged().observe(viewLifecycleOwner) {
+        viewModel.weather.observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.NONE -> {
                     // Do nothing
