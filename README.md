@@ -1,6 +1,10 @@
 # OpenWeatherApp
 
-This Android application permits you to retrieve the weather info about your favorite city from the https://openweathermap.org/ api.
+<p align="center">
+  <img src="https://github.com/dariobrux/OpenWeatherApp/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+</p>
+
+This Android application written in Kotlin permits you to retrieve the weather info about your favorite city from the https://openweathermap.org/ api.
 
 |            |.              |        |
 |:----------:|:-------------:|:------:|
