@@ -1,6 +1,11 @@
 # OpenWeatherApp
 
-This Android application permits you to retrieve the weather info about your favorite city.
+This Android application permits you to retrieve the weather info about your favorite city from the https://openweathermap.org/ api.
+
+|            |.              |        |
+|:----------:|:-------------:|:------:|
+| ![Splash screen](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607100380.png) |  ![Main screen - no data and ready to fill](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607100451.png) | ![Main screen - no data and no results found](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607100468.png) |
+| ![Main screen - results found](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607100482.png) |    ![Main screen - results found - scrolled](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607101237.png)  |   ![Info screen](https://github.com/dariobrux/OpenWeatherApp/blob/main/other/screenshot/Screenshot_1607100486.png)  |
 
 ## In this app you will find:
 - a splash screen
