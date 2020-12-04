@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.ui.location
+package com.dariobrux.openweatherapp.ui.main.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ import com.dariobrux.openweatherapp.ui.util.WeatherSpaceItemDecoration
  * This adapter displays the date and the weather conditions.
  *
  */
-class LocationAdapter(
+class GroupedAdapter(
     private val context: Context,
     private val items: List<Any>,
     private val listener: WeatherAdapter.OnItemSelectedListener?

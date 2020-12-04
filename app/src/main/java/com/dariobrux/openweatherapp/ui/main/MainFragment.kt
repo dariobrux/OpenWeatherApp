@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.ui.location
+package com.dariobrux.openweatherapp.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -15,7 +15,9 @@ import com.dariobrux.openweatherapp.common.extension.toVisible
 import com.dariobrux.openweatherapp.data.local.model.WeatherEntity
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.data.remote.Resource
-import com.dariobrux.openweatherapp.databinding.FragmentLocationBinding
+import com.dariobrux.openweatherapp.databinding.FragmentMainBinding
+import com.dariobrux.openweatherapp.ui.main.adapter.GroupedAdapter
+import com.dariobrux.openweatherapp.ui.main.adapter.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -26,20 +28,20 @@ import dagger.hilt.android.AndroidEntryPoint
  *
  */
 @AndroidEntryPoint
-class LocationFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
+class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
      */
-    private var binding: FragmentLocationBinding? = null
+    private var binding: FragmentMainBinding? = null
 
     /**
      * The ViewModel that handles all this Fragment logic.
      */
-    private val viewModel: LocationViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentLocationBinding.inflate(inflater, container, false)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
@@ -99,7 +101,7 @@ class LocationFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
         binding?.run {
             txtCityName.text = city
             progressLocation.toInvisible()
-            recyclerWeather.adapter = LocationAdapter(requireContext(), items, this@LocationFragment)
+            recyclerWeather.adapter = GroupedAdapter(requireContext(), items, this@MainFragment)
         }
     }
 

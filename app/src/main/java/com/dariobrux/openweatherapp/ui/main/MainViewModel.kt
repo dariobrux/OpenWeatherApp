@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.ui.location
+package com.dariobrux.openweatherapp.ui.main
 
 import android.content.Context
 import android.widget.EditText
@@ -24,7 +24,7 @@ import timber.log.Timber
  * Fragment and Repository.
  *
  */
-class LocationViewModel @ViewModelInject constructor(@ApplicationContext private val context: Context, private val repository: LocationRepository) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(@ApplicationContext private val context: Context, private val repository: MainRepository) : ViewModel() {
 
     /**
      * The weather is mapped into a [Resource] object. Inside it:

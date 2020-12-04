@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.ui.location
+package com.dariobrux.openweatherapp.ui.main.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

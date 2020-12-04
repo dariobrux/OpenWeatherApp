@@ -7,7 +7,7 @@ import com.dariobrux.openweatherapp.data.local.WeatherDAO
 import com.dariobrux.openweatherapp.data.local.WeatherDatabase
 import com.dariobrux.openweatherapp.data.remote.WeatherApiHelper
 import com.dariobrux.openweatherapp.data.remote.WeatherService
-import com.dariobrux.openweatherapp.ui.location.LocationRepository
+import com.dariobrux.openweatherapp.ui.main.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,7 +68,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLocationRepository(apiHelper: WeatherApiHelper, dao: WeatherDAO) = LocationRepository(apiHelper, dao)
+    fun provideLocationRepository(apiHelper: WeatherApiHelper, dao: WeatherDAO) = MainRepository(apiHelper, dao)
 
     @Singleton
     @Provides

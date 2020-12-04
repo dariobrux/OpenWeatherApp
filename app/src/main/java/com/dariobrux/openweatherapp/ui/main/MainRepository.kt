@@ -1,4 +1,4 @@
-package com.dariobrux.openweatherapp.ui.location
+package com.dariobrux.openweatherapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +23,7 @@ import javax.inject.Inject
  * between the ViewModel and the Restful API.
  *
  */
-class LocationRepository @Inject constructor(private val api: WeatherApiHelper, private val dao: WeatherDAO) {
+class MainRepository @Inject constructor(private val api: WeatherApiHelper, private val dao: WeatherDAO) {
 
     /**
      * Get the weather from API Rest.

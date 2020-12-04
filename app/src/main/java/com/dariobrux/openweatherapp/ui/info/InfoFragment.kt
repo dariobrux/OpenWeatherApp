@@ -11,7 +11,7 @@ import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.common.extension.*
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.FragmentInfoBinding
-import com.dariobrux.openweatherapp.ui.location.LocationViewModel
+import com.dariobrux.openweatherapp.ui.main.MainViewModel
 import java.util.*
 
 /**
@@ -26,7 +26,7 @@ class InfoFragment : DialogFragment() {
     /**
      * The ViewModel that handles all this Fragment logic.
      */
-    private val viewModel: LocationViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.

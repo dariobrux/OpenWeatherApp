@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.dariobrux.openweatherapp.ui.location.LocationFragment"
+        android:name="com.dariobrux.openweatherapp.ui.main.MainFragment"
         android:label="fragment_location"
-        tools:layout="@layout/fragment_location">
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_locationFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
