@@ -8,7 +8,7 @@ This Android application permits you to retrieve the weather info about your fav
 - an info screen, reachable by tap on a weather item for the previous point.
 
 ## The code contains:
-- only one Activity. It's a Single-Activity project.
+- Only one Activity. It's a Single-Activity project.
 - MVVM + Repository pattern as main architecture.
 - Hilt as Dependency Injection
 - Room Database
