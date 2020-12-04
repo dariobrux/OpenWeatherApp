@@ -10,4 +10,5 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="humidity_format">Humidity %d%%</string>
     <string name="degree_format">%d°</string>
+    <string name="at_format">%s at %s</string>
 </resources>
