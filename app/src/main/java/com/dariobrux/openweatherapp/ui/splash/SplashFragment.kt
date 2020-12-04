@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.extension.toMainActivity
 import com.dariobrux.openweatherapp.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 
 /**
  *
@@ -43,11 +46,19 @@ class SplashFragment : Fragment() {
         requireActivity().toMainActivity()?.setStatusBarColor(R.color.blue_gray_900)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+    }
+
     override fun onResume() {
         super.onResume()
-        activityScope.launch {
-            delay(500)
-            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_locationFragment)
+        with(binding!!.imgSplash) {
+            scaleX = 0.2f
+            scaleY = 0.2f
+            alpha = 0f
+            animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(3000).setInterpolator(OvershootInterpolator()).withEndAction {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_locationFragment)
+            }.start()
         }
     }
 
