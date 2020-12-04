@@ -72,9 +72,11 @@ class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
                 }
                 Resource.Status.LOADING -> {
                     showLoading()
+                    dismissNoResult()
                 }
                 Resource.Status.ERROR -> {
-                    binding?.progressLocation?.toInvisible()
+                    dismissLoading()
+                    showNoResults(it.data?.first?.cityName)
                 }
                 Resource.Status.SUCCESS -> {
                     showLocationFound(it.data!!.first!!, it.data.second)
@@ -84,12 +86,38 @@ class MainFragment : Fragment(), WeatherAdapter.OnItemSelectedListener {
     }
 
     /**
-     * Show the progress on screen during loading state.
+     * Show the No Results label or nothing if the [cityName] is null or empty.
+     * @param cityName the name of the city
+     */
+    private fun showNoResults(cityName: String?) {
+        cityName?.let {
+            binding?.let {
+                it.txtNoResults.toVisible()
+                it.txtNoResults.text = getString(R.string.no_results_format, cityName)
+            }
+        }
+    }
+
+    /**
+     * Dismiss the No Results label from the screen.
+     */
+    private fun dismissNoResult() {
+        binding?.txtNoResults?.toInvisible()
+    }
+
+    /**
+     * Dismiss the progress on screen.
+     */
+    private fun dismissLoading() {
+        binding?.progressLocation?.toInvisible()
+    }
+
+    /**
+     * Show the progress on screen.
      */
     private fun showLoading() {
-        with(binding!!) {
-            progressLocation.toVisible()
-        }
+        binding?.progressLocation?.toVisible()
+
     }
 
     /**

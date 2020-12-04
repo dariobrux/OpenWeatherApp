@@ -2,9 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/containerMain"
+    android:animateLayoutChanges="true"
     tools:context=".ui.main.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -76,6 +77,18 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/txtNoResults"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingTop="@dimen/small_space"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#ef9a9a"
+                app:layout_constraintEnd_toEndOf="@id/materialTextField"
+                app:layout_constraintStart_toStartOf="@id/materialTextField"
+                app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+
+            <TextView
                 android:id="@+id/txtCityName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -88,7 +101,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+                app:layout_constraintTop_toBottomOf="@id/txtNoResults" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerWeather"

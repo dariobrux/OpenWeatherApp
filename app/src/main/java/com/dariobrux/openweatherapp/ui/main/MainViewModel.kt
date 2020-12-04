@@ -87,7 +87,7 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
                     if (weatherList.isNullOrEmpty()) {
 
                         status = value.status
-                        data = null
+                        data = Pair(CityEntity(text.toString()), emptyList())
                         message = null
 
                     } else {
@@ -99,7 +99,7 @@ class MainViewModel @ViewModelInject constructor(@ApplicationContext private val
                 } else {
 
                     status = Resource.Status.ERROR
-                    data = null
+                    data = Pair(CityEntity(text.toString()), emptyList())
                     message = null
                 }
 
