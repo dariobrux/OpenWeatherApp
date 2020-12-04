@@ -34,25 +34,9 @@
             android:layout_height="@dimen/regular_weather_icon_size"
             android:contentDescription="@string/weather"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/txtWeather"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtTime" />
-
-        <TextView
-            android:id="@+id/txtWeather"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:includeFontPadding="false"
-            android:paddingStart="@dimen/small_space"
-            android:paddingEnd="@dimen/small_space"
-            android:paddingBottom="@dimen/small_space"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/imageWeather"
-            app:layout_constraintTop_toBottomOf="@id/imageWeather"
-            tools:text="Title" />
 
         <TextView
             android:id="@+id/txtTemp"

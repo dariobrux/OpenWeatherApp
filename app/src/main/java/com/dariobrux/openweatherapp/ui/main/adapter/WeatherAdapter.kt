@@ -10,7 +10,6 @@ import com.dariobrux.openweatherapp.common.extension.format
 import com.dariobrux.openweatherapp.common.extension.loadImage
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.ItemSingleWeatherBinding
-import java.util.*
 import kotlin.math.roundToInt
 
 /**
@@ -59,7 +58,6 @@ class WeatherAdapter(
             }
 
             imageWeather.loadImage(item.icon)
-            txtWeather.text = item.subtitle.capitalize(Locale.getDefault())
             txtTime.text = DateManager.toDate(item.date)!!.format(DateManager.DateFormat.H_MM_AA)
             txtTemp.text = context.getString(R.string.degree_format, item.temp.roundToInt())
         }

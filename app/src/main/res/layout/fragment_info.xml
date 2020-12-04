@@ -104,6 +104,7 @@
                     android:lineSpacingExtra="@dimen/small_space"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/white"
+                    android:textSize="48sp"
                     android:textStyle="bold" />
 
                 <TextView

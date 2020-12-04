@@ -4,7 +4,7 @@
     <string name="type_location">Type a location</string>
     <string name="weather">Weather</string>
     <string name="min_format">Min\n%d°</string>
-    <string name="temp_format">Temp\n%d°</string>
+    <string name="temp_format">%d°</string>
     <string name="max_format">Max\n%d°</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
