@@ -56,7 +56,7 @@ class SplashFragment : Fragment() {
             scaleX = 0.2f
             scaleY = 0.2f
             alpha = 0f
-            animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(300).setInterpolator(OvershootInterpolator()).withEndAction {
+            animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(2000).setInterpolator(OvershootInterpolator()).withEndAction {
                 NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_locationFragment)
             }.start()
         }
