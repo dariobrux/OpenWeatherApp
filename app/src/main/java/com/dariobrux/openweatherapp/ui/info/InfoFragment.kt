@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
 import com.dariobrux.openweatherapp.R
 import com.dariobrux.openweatherapp.common.DateManager
 import com.dariobrux.openweatherapp.common.extension.*
 import com.dariobrux.openweatherapp.data.local.model.WeatherInfoEntity
 import com.dariobrux.openweatherapp.databinding.FragmentInfoBinding
-import com.dariobrux.openweatherapp.ui.main.MainViewModel
 import java.util.*
 
 /**
@@ -24,15 +22,13 @@ import java.util.*
 class InfoFragment : DialogFragment() {
 
     /**
-     * The ViewModel that handles all this Fragment logic.
-     */
-    private val viewModel: MainViewModel by viewModels()
-
-    /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
      */
     private var binding: FragmentInfoBinding? = null
 
+    /**
+     * The [WeatherInfoEntity] object retrieved by arguments.
+     */
     private var weatherInfo: WeatherInfoEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
