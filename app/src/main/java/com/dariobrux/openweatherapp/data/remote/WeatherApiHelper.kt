@@ -17,7 +17,11 @@ class WeatherApiHelper @Inject constructor(private val service: WeatherService) 
      * Get the [RootData] with the high level info about the weather.
      * @param cityName the name of the city.
      * @param appId the id of the registered user.
+     * @param lang the language of the results.
+     * @param unit the temperature unit of measurement.
      * @return the [RootData] mapped into a [Response] object.
      */
-    suspend fun getWeather(cityName: String, appId: String) = getResult { service.getWeather(cityName, appId) }
+    suspend fun getWeather(cityName: String, appId: String, lang: String, unit: String) = getResult {
+        service.getWeather(cityName, appId, lang, unit)
+    }
 }

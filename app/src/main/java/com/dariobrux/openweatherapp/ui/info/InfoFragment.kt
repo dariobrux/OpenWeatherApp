@@ -60,7 +60,7 @@ class InfoFragment : DialogFragment() {
 
                 if (DateManager.toDate(item.date)?.isToday() == true) {
                     txtMin.toGone()
-                    txtTemp.text = getString(R.string.min_format, item.temp.toInt())
+                    txtTemp.text = getString(R.string.temp_format, item.temp.toInt())
                     txtMax.toGone()
                 } else {
                     txtMin.text = getString(R.string.min_format, item.tempMin.toInt())

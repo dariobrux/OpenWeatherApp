@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -41,7 +42,7 @@ class LocationRepository @Inject constructor(private val api: WeatherApiHelper, 
 
             kotlin.runCatching {
 
-                api.getWeather(cityName, Constants.APP_ID)
+                api.getWeather(cityName, Constants.APP_ID, Locale.ENGLISH.language, Constants.TEMPERATURE_UNIT)
 
             }.onSuccess {
 

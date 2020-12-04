@@ -18,8 +18,15 @@ interface WeatherService {
      * Get the [RootData] with the high level info about the weather.
      * @param cityName the name of the city.
      * @param appId the id of the registered user.
+     * @param lang the language of the results.
+     * @param unit the temperature unit of measurement.
      * @return the [RootData] mapped into a [Response] object.
      */
     @GET("data/2.5/forecast")
-    suspend fun getWeather(@Query("q") cityName: String, @Query("appid") appId: String): Response<RootData>
+    suspend fun getWeather(
+        @Query("q") cityName: String,
+        @Query("appid") appId: String,
+        @Query("lang") lang: String,
+        @Query("units") unit: String,
+    ): Response<RootData>
 }

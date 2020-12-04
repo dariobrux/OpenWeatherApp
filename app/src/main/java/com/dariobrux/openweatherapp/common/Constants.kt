@@ -13,4 +13,6 @@ object Constants {
     const val ICON_BASE_URL = "https://openweathermap.org/"
     const val PATH_NETWORK_ICON = "img/wn/"
     const val ICON_FORMAT = "@2x.png"
+
+    const val TEMPERATURE_UNIT = "metric"
 }
